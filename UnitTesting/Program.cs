@@ -9,9 +9,14 @@ namespace Bingo
     {
         public static void Main(string[] args)
         {
-            var generator = new BingoBoardGenerator();
+            var generator = new BingoBoardGenerator(new FixedItemsSource());
+            RunGame(generator, DrawBoard);
+        }
+
+        public static void RunGame(IBoardGameGenerator generator, Action<string[,]> drawBoard)
+        {
             string[,] board = generator.GenerateBoard();
-            DrawBoard(board);
+            drawBoard(board);
         }
 
         #region Rendering

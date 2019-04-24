@@ -11,29 +11,20 @@ namespace Bingo.Tests
         [TestMethod]
         public void DisplaysBoard()
         {
-            var sb = new StringBuilder();
-            Console.SetOut(new StringWriter(sb));
-            Program.Main(null);
+            string[,] testBoard = new string[5,5];
+            IBoardGameGenerator boardGameGenerator = new TestableBoardGameGenerator { Board = testBoard };
 
-            string output = sb.ToString().Trim();
-            Assert.IsFalse(string.IsNullOrEmpty(output));
+            string[,] drawnBoard = null;
+            Program.RunGame(boardGameGenerator, board => { drawnBoard = board; });
+
+            Assert.AreEqual(testBoard, drawnBoard);
+        }
+
+        private class TestableBoardGameGenerator : IBoardGameGenerator
+        {
+            public string[,] Board { get; set; }
+
+            public string[,] GenerateBoard() => Board;
         }
     }
-
-    [TestClass]
-    public class BingoBoardGameGeneratorTests
-    {
-        [TestMethod]
-        public void BoardIs5x5()
-        {
-            var generator = new BingoBoardGenerator();
-        }
-
-        [TestMethod]
-        public void BoardContainsExpectedItems()
-        {
-
-        }
-    }
-
 }
