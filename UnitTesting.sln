@@ -1,9 +1,11 @@
-
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.202
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bingo", "UnitTesting\Bingo.csproj", "{1382D083-9B04-4BB9-BB9C-C49EAC3042F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bingo.Tests", "Bingo.Tests\Bingo.Tests.csproj", "{106E620A-B967-4A27-B114-88A8E71C69D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{1382D083-9B04-4BB9-BB9C-C49EAC3042F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1382D083-9B04-4BB9-BB9C-C49EAC3042F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1382D083-9B04-4BB9-BB9C-C49EAC3042F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{106E620A-B967-4A27-B114-88A8E71C69D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{106E620A-B967-4A27-B114-88A8E71C69D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{106E620A-B967-4A27-B114-88A8E71C69D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{106E620A-B967-4A27-B114-88A8E71C69D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
