@@ -1,7 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.IO;
-using System.Text;
+using Moq;
 
 namespace Bingo.Tests
 {
@@ -12,19 +10,15 @@ namespace Bingo.Tests
         public void DisplaysBoard()
         {
             string[,] testBoard = new string[5,5];
-            IBoardGameGenerator boardGameGenerator = new TestableBoardGameGenerator { Board = testBoard };
+
+            Mock<IBoardGameGenerator> boardGameGeneratorMock = new Mock<IBoardGameGenerator>();
+            boardGameGeneratorMock.Setup(x => x.GenerateBoard()).Returns(testBoard);
 
             string[,] drawnBoard = null;
-            Program.RunGame(boardGameGenerator, board => { drawnBoard = board; });
+            Program.RunGame(boardGameGeneratorMock.Object, board => { drawnBoard = board; });
 
+            boardGameGeneratorMock.VerifyAll();
             Assert.AreEqual(testBoard, drawnBoard);
-        }
-
-        private class TestableBoardGameGenerator : IBoardGameGenerator
-        {
-            public string[,] Board { get; set; }
-
-            public string[,] GenerateBoard() => Board;
         }
     }
 }

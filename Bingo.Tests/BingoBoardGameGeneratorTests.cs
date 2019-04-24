@@ -1,18 +1,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using Moq.AutoMock;
 
 namespace Bingo.Tests
 {
     [TestClass]
     public class BingoBoardGameGeneratorTests
     {
+        private static readonly string[] _items = Enumerable.Repeat("foo", 25).ToArray();
+
         [TestMethod]
         public void BoardIs5x5()
         {
-            var generator = new BingoBoardGenerator(new TestableItemsSource());
+            var mocker = new AutoMocker();
+            Mock<IBoardItemsSource> itemsSourceMock = mocker.GetMock<IBoardItemsSource>();
+            itemsSourceMock.Setup(x => x.GetBoardItems())
+                .Returns(_items);
+
+            var generator = mocker.CreateInstance<BingoBoardGenerator>();
             string[,] board = generator.GenerateBoard();
 
+
+            mocker.VerifyAll();
             Assert.AreEqual(25, board.Length);
             Assert.AreEqual(5, board.GetLength(0));
             Assert.AreEqual(5, board.GetLength(1));
@@ -21,25 +32,20 @@ namespace Bingo.Tests
         [TestMethod]
         public void BoardContainsExpectedItems()
         {
-            var generator = new BingoBoardGenerator(new TestableItemsSource("foo"));
+            var mocker = new AutoMocker();
+            Mock<IBoardItemsSource> itemsSourceMock = mocker.GetMock<IBoardItemsSource>();
+            itemsSourceMock.Setup(x => x.GetBoardItems())
+                .Returns(_items);
+
+            var generator = mocker.CreateInstance<BingoBoardGenerator>();
+
             string[,] board = generator.GenerateBoard();
 
+            mocker.VerifyAll();
             foreach (var item in board)
             {
                 Assert.AreEqual("foo", item);
             }
-        }
-
-        private class TestableItemsSource : IBoardItemsSource
-        {
-            private readonly string[] _items;
-
-            public TestableItemsSource(string item = null)
-            {
-                _items = Enumerable.Repeat(item, 25).ToArray();
-            }
-
-            public IEnumerable<string> GetBoardItems() => _items;
         }
     }
 }
